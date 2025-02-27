@@ -5,8 +5,9 @@ import {
   ScrollView,
   Image,
   StatusBar,
+  TextInput,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { icons, images } from "@/constants";
 import CustomButton from "@/components/CustomButton";
 import InputField from "@/components/InputField";
@@ -21,6 +22,9 @@ const SignUp = () => {
     error: "",
     code: "",
   });
+  // Create refs for each input field
+  const emailRef = useRef<TextInput>(null);
+  const passwordRef = useRef<TextInput>(null);
   return (
     <ScrollView style={styles.container}>
       <View>
@@ -36,6 +40,9 @@ const SignUp = () => {
           icon={icons.person}
           value={form.name}
           onChangeText={(value: string) => setForm({ ...form, name: value })}
+          returnKeyType="next"
+          onSubmitEditing={() => emailRef.current?.focus()}
+          blurOnSubmit={false}
         />
         <InputField
           label="Email"
@@ -44,6 +51,10 @@ const SignUp = () => {
           textContentType="emailAddress"
           value={form.email}
           onChangeText={(value: string) => setForm({ ...form, email: value })}
+          ref={emailRef}
+          returnKeyType="next"
+          onSubmitEditing={() => passwordRef.current?.focus()}
+          blurOnSubmit={false}
         />
         <InputField
           label="Password"
@@ -55,6 +66,8 @@ const SignUp = () => {
           onChangeText={(value: string) =>
             setForm({ ...form, password: value })
           }
+          ref={passwordRef}
+          returnKeyType="done"
         />
         <CustomButton title="Sign Up" style={styles.button} />
         <OAuth />

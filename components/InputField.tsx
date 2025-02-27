@@ -1,3 +1,4 @@
+import React, { useState, forwardRef } from "react";
 import {
   TextInput,
   View,
@@ -9,10 +10,12 @@ import {
   Platform,
   StyleSheet,
   ImageSourcePropType,
+  TextInputProps,
+  TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
+import Feather from "@expo/vector-icons/Feather";
 
-export interface InputFieldProps {
+export interface InputFieldProps extends TextInputProps {
   label: string;
   icon?: ImageSourcePropType;
   secureTextEntry?: boolean;
@@ -20,49 +23,67 @@ export interface InputFieldProps {
   containerStyle?: object;
   inputStyle?: object;
   iconStyle?: object;
-  value?: string;
-  onChangeText?: (text: string) => void;
 }
 
-const InputField = ({
-  label,
-  icon,
-  secureTextEntry = false,
-  labelStyle,
-  containerStyle,
-  inputStyle,
-  iconStyle,
-  ...props
-}: InputFieldProps) => {
-  const [isFocused, setIsFocused] = useState(false);
+const InputField = forwardRef<TextInput, InputFieldProps>(
+  (
+    {
+      label,
+      icon,
+      secureTextEntry = false,
+      labelStyle,
+      containerStyle,
+      inputStyle,
+      iconStyle,
+      ...props
+    },
+    ref
+  ) => {
+    const [isFocused, setIsFocused] = useState(false);
+    const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  return (
-    <KeyboardAvoidingView
-      behavior={Platform.OS === "ios" ? "padding" : "height"}
-    >
-      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={[styles.container, containerStyle]}>
-          <Text style={[styles.label, labelStyle]}>{label}</Text>
-          <View
-            style={[
-              styles.inputContainer,
-              isFocused && styles.inputContainerFocused,
-            ]}
-          >
-            {icon && <Image source={icon} style={[styles.icon, iconStyle]} />}
-            <TextInput
-              style={[styles.input, inputStyle]}
-              secureTextEntry={secureTextEntry}
-              onFocus={() => setIsFocused(true)}
-              onBlur={() => setIsFocused(false)}
-              {...props}
-            />
+    return (
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
+      >
+        <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+          <View style={[styles.container, containerStyle]}>
+            <Text style={[styles.label, labelStyle]}>{label}</Text>
+            <View
+              style={[
+                styles.inputContainer,
+                isFocused && styles.inputContainerFocused,
+              ]}
+            >
+              {icon && <Image source={icon} style={[styles.icon, iconStyle]} />}
+              <TextInput
+                ref={ref}
+                style={[styles.input, inputStyle]}
+                secureTextEntry={secureTextEntry && !isPasswordVisible}
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
+                {...props}
+              />
+              {secureTextEntry && (
+                <TouchableOpacity
+                  onPress={() => setIsPasswordVisible(!isPasswordVisible)}
+                  style={styles.eyeIconContainer}
+                >
+                  <Feather
+                    name={isPasswordVisible ? "eye-off" : "eye"}
+                    size={24}
+                    color="#6B7280"
+                    style={styles.eyeIcon}
+                  />
+                </TouchableOpacity>
+              )}
+            </View>
           </View>
-        </View>
-      </TouchableWithoutFeedback>
-    </KeyboardAvoidingView>
-  );
-};
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    );
+  }
+);
 
 const styles = StyleSheet.create({
   container: {
@@ -73,6 +94,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: "Jakarta-Medium",
     marginBottom: 7,
+    color: "#000000",
   },
   inputContainer: {
     flexDirection: "row",
@@ -98,6 +120,12 @@ const styles = StyleSheet.create({
     fontSize: 15,
     fontFamily: "Jakarta-Medium",
     textAlign: "left",
+  },
+  eyeIconContainer: {
+    padding: 5,
+  },
+  eyeIcon: {
+    paddingRight: 5,
   },
 });
 
