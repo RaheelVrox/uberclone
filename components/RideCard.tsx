@@ -49,7 +49,7 @@ const RideCard = ({ ride = dummyRide }: { ride?: Ride }) => {
           <View style={styles.infoRow}>
             <Text style={styles.label}>Date & Time</Text>
             <Text style={styles.value}>
-              {formatDate(ride.created_at)} {formatTime(ride.ride_time)}
+              {formatDate(ride.created_at)} 3:45 PM
             </Text>
           </View>
           <View style={styles.divider} />

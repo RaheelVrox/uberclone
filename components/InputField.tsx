@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     borderColor: "#F5F5F5",
     paddingHorizontal: 16,
     // paddingVertical: 12,
-    padding: 12,
+    padding: 9,
   },
   inputContainerFocused: {
     borderColor: "#3B82F6",

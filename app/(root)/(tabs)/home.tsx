@@ -91,7 +91,6 @@ const Home = () => {
               icon={icons.search}
               containerStyle={styles.searchContainer}
             />
-
             <Text style={styles.sectionTitle}>Your current location</Text>
             <View style={styles.mapContainer}>
               <Map />

@@ -59,7 +59,13 @@ const signIn = () => {
           ref={passwordRef}
           returnKeyType="done"
         />
-        <CustomButton title="Log In" style={styles.button} />
+        <CustomButton
+          title="Log In"
+          style={styles.button}
+          onPress={() => {
+            router.push(`/(root)/(tabs)/home`);
+          }}
+        />
         <OAuth />
         <Link href="/(auth)/sign-up" style={styles.link}>
           Don’t have an account?{" "}
