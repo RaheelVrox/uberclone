@@ -12,6 +12,7 @@ import Map from "@/components/Map";
 import { icons, images } from "@/constants";
 import RideCard from "@/components/RideCard";
 import GoogleTextInput from "@/components/GoogleTextInput";
+import { router } from "expo-router";
 
 const Home = () => {
   const recentRides = [
@@ -52,9 +53,16 @@ const Home = () => {
             ride={{
               origin_address: item.pickup,
               destination_address: item.dropoff,
+              origin_latitude: 40.7128,
+              origin_longitude: -74.006,
+              destination_latitude: 40.7306,
+              destination_longitude: -73.9352,
               created_at: new Date().toISOString(),
               ride_time: new Date(`${item.date} ${item.time}`).getTime(),
               payment_status: "paid",
+              fare_price: parseFloat(item.price.replace("$", "")),
+              driver_id: 123,
+              user_id: "user456",
               driver: { first_name: "Jane", last_name: "Cooper", car_seats: 4 },
             }}
           />
@@ -81,8 +89,13 @@ const Home = () => {
         ListHeaderComponent={
           <>
             <View style={styles.headerContainer}>
-              <Text style={styles.welcomeText}>Welcome User 👋</Text>
-              <TouchableOpacity style={styles.signOutButton}>
+              <Text style={styles.welcomeText}>Welcome User</Text>
+              <TouchableOpacity
+                style={styles.signOutButton}
+                onPress={() => {
+                  router.replace("/(auth)/welcome");
+                }}
+              >
                 <Image source={icons.out} style={styles.signOutIcon} />
               </TouchableOpacity>
             </View>
@@ -95,7 +108,6 @@ const Home = () => {
             <View style={styles.mapContainer}>
               <Map />
             </View>
-
             <Text style={styles.sectionTitle}>Recent Rides</Text>
           </>
         }

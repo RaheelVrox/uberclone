@@ -1,6 +1,5 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import InputField from "@/components/InputField";
 
 const Profile = () => {
@@ -8,7 +7,7 @@ const Profile = () => {
     <SafeAreaView style={{ flex: 1 }}>
       <ScrollView
         style={{ paddingHorizontal: 20 }}
-        contentContainerStyle={{ paddingBottom: 120 }}
+        contentContainerStyle={{ paddingBottom: 30 }}
       >
         <Text
           style={{
@@ -17,7 +16,7 @@ const Profile = () => {
             fontFamily: "Jakarta-Bold",
           }}
         >
-          My profile
+          Your profile
         </Text>
         <View
           style={{
@@ -48,28 +47,25 @@ const Profile = () => {
               label="First name"
               placeholder="Enter First name"
               containerStyle={{ width: "100%" }}
-              editable={false}
             />
 
             <InputField
               label="Last name"
               placeholder="Enter Last name"
               containerStyle={{ width: "100%" }}
-              editable={false}
             />
 
             <InputField
               label="Email"
               placeholder={"Enter Email"}
               containerStyle={{ width: "100%" }}
-              editable={false}
             />
 
             <InputField
               label="Phone"
               placeholder="Enter Phone"
               containerStyle={{ width: "100%" }}
-              editable={false}
+              keyboardType="number-pad"
             />
           </View>
         </View>

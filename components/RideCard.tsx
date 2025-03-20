@@ -17,6 +17,11 @@ const dummyRide: Ride = {
     last_name: "Doe",
     car_seats: 4,
   },
+  origin_latitude: 0,
+  origin_longitude: 0,
+  fare_price: 0,
+  driver_id: 0,
+  user_id: "",
 };
 
 const RideCard = ({ ride = dummyRide }: { ride?: Ride }) => {
@@ -95,6 +100,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 2,
     marginBottom: 12,
+    marginHorizontal: 12,
   },
   container: {
     padding: 12,

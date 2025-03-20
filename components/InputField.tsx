@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "#F5F5F5",
     paddingHorizontal: 16,
-    // paddingVertical: 12,
-    padding: 9,
+    paddingVertical: 13,
+    // padding: 9,
   },
   inputContainerFocused: {
     borderColor: "#3B82F6",
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     textAlign: "left",
   },
   eyeIconContainer: {
-    padding: 5,
+    // padding: 5,
   },
   eyeIcon: {
     paddingRight: 5,

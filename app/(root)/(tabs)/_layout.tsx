@@ -1,6 +1,13 @@
 import { Tabs } from "expo-router";
-import { Image, ImageSourcePropType, View, StyleSheet } from "react-native";
+import {
+  Image,
+  ImageSourcePropType,
+  View,
+  StyleSheet,
+  Keyboard,
+} from "react-native";
 import { icons } from "@/constants";
+import { useEffect, useState } from "react";
 
 const TabIcon = ({
   source,
@@ -22,6 +29,22 @@ const TabIcon = ({
 );
 
 export default function Layout() {
+  const [isKeyboardVisible, setKeyboardVisible] = useState(false);
+
+  useEffect(() => {
+    const showSubscription = Keyboard.addListener("keyboardDidShow", () => {
+      setKeyboardVisible(true);
+    });
+    const hideSubscription = Keyboard.addListener("keyboardDidHide", () => {
+      setKeyboardVisible(false);
+    });
+
+    return () => {
+      showSubscription.remove();
+      hideSubscription.remove();
+    };
+  }, []);
+
   return (
     <Tabs
       initialRouteName="home"
@@ -29,7 +52,7 @@ export default function Layout() {
         tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "white",
         tabBarShowLabel: false,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: isKeyboardVisible ? { display: "none" } : styles.tabBar,
       }}
     >
       <Tabs.Screen

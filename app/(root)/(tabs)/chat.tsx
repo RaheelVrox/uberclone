@@ -1,13 +1,12 @@
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-
 import { images } from "@/constants";
 
 const Chat = () => {
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: "white", padding: 20 }}>
       <ScrollView contentContainerStyle={{ flexGrow: 1 }}>
-        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Chat</Text>
+        <Text style={{ fontSize: 24, fontWeight: "bold" }}>Chat List</Text>
         <View
           style={{
             flex: 1,
@@ -21,7 +20,7 @@ const Chat = () => {
             resizeMode="contain"
           />
           <Text style={{ fontSize: 24, fontWeight: "bold", marginTop: 12 }}>
-            No Messages Yet
+            No Messages, yet.
           </Text>
           <Text
             style={{
@@ -31,7 +30,7 @@ const Chat = () => {
               paddingHorizontal: 28,
             }}
           >
-            Start a conversation with your friends
+            No messages in your inbox, yet!
           </Text>
         </View>
       </ScrollView>
